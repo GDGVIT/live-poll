@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 //Middleware
 app.use(bodyParser.json());
 app.use(
@@ -25,5 +25,7 @@ mongoose.connect(
   () => console.log("connected to DB")
 );
 const authRoute = require("./routes/auth");
+const addEvent = require("./routes/addEvent");
 app.use("/api/user", authRoute);
+app.use("/api", addEvent);
 app.listen(process.env.PORT, () => console.log("Server is up and running"));
