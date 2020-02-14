@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-
+const mongoose = require('mongoose');
 //Middleware
 app.use(bodyParser.json());
 app.use(
