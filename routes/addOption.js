@@ -5,7 +5,7 @@ const verify = require("./verifyToken");
 
 router.post("/:ActionID/:QuestionID", verify, (req, res) => {
   const ActionID = req.params.ActionID;
-  const QuestionID = req.params.QuestionId;
+  const QuestionID = req.params.QuestionID;
   Action.updateOne(
     { _id: ActionID, "Questions._id": QuestionID },
     { $push: { "Questions.$.options": req.body } },
