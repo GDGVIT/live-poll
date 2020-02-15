@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 
 const opt = new mongoose.Schema({
   option: {
-    type: Number,
+    type: String,
     required: true
   },
   stat: {
     type: Number,
-    required: true
+    default: 0.0
   }
 });
 const Question = new mongoose.Schema({
@@ -21,7 +21,7 @@ const Question = new mongoose.Schema({
     default: []
   },
   correct: {
-    type: Number,
+    type: String,
     required: false
   }
 });
@@ -31,8 +31,8 @@ const actionSchema = new mongoose.Schema({
     required: true,
     default: new Date().getTime()
   },
-  type: {
-    type: { type: String },
+  action_type: {
+    type: String,
     required: true
   },
   Questions: {

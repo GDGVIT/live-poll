@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Event = require("../model/Event");
 const uuid4 = require("uuid4");
 const verify = require("./verifyToken");
-router.post("/addEvent", verify, (req, res) => {
+router.post("/", verify, (req, res) => {
   const event = new Event({
     Name: req.body.Name,
     Code: uuid4()

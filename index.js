@@ -20,12 +20,19 @@ mongoose.connect(
   process.env.DB_CONNECTION,
   {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   },
   () => console.log("connected to DB")
 );
 const authRoute = require("./routes/auth");
 const addEvent = require("./routes/addEvent");
+const addAction = require("./routes/addAction");
+const addQuestion = require("./routes/addQuestion");
+const addOption = require("./routes/addOption");
 app.use("/api/user", authRoute);
-app.use("/api", addEvent);
+app.use("/api/addEvent", addEvent);
+app.use("/api/addAction", addAction);
+app.use("/api/addQuestion", addQuestion);
+app.use("/api/addOption",addOption);
 app.listen(process.env.PORT, () => console.log("Server is up and running"));
