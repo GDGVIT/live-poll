@@ -27,7 +27,7 @@ const Question = new mongoose.Schema({
 });
 const actionSchema = new mongoose.Schema({
   timestamp: {
-    type: Number,
+    type: Date,
     required: true,
     default: new Date().getTime()
   },

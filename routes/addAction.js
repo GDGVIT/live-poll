@@ -6,6 +6,10 @@ const verify = require("./verifyToken");
 
 router.post("/:event_id", verify, (req, res) => {
   const eventID = req.params.event_id;
+  const type=req.body.action_type;
+  if(type !== "Quiz" || type !== "Poll" || type !== "Feedback"){
+      res.status(400).json({"Error":"Invalid Action Type"});
+  }
   const action = new Action({
     action_type: req.body.action_type
   });

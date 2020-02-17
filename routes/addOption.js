@@ -11,9 +11,9 @@ router.post("/:ActionID/:QuestionID", verify, (req, res) => {
     { $push: { "Questions.$.options": req.body } },
     err => {
       if (err) {
-        res.send(err);
+        res.json(err);
       } else {
-        res.send("Successful");
+        res.json({"Status":"Successfully added Option"});
       }
     }
   );
