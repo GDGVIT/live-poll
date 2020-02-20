@@ -1,7 +1,6 @@
 // jshint esversion:8
 const router = require("express").Router();
 const Action = require("../model/Action");
-const mongoose = require("mongoose");
 
 router.get("/:ActionID/:QuestionID/:OptionID", async (req, res) => {
   const ActionID = req.params.ActionID;
