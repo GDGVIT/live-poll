@@ -33,7 +33,7 @@ const actionSchema = new mongoose.Schema({
   },
   action_type: {
     type: String,
-    required: true
+    required: false
   },
   Questions: {
     type: [Question],
