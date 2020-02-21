@@ -4,10 +4,10 @@ const Event = require("../model/Event");
 const random = require("random-number");
 const verify = require("./verifyToken");
 router.post("/", verify, (req, res) => {
-  const options={
-    min:100000,
-    max:999999,
-    integer:true
+  const options = {
+    min: 100000,
+    max: 999999,
+    integer: true
   };
   const event = new Event({
     Name: req.body.Name,
