@@ -1,12 +1,17 @@
 //jshint esversion:8
 const router = require("express").Router();
 const Event = require("../model/Event");
-const uuid4 = require("uuid4");
+const random = require("random-number");
 const verify = require("./verifyToken");
 router.post("/", verify, (req, res) => {
+  const options={
+    min:100000,
+    max:999999,
+    integer:true
+  };
   const event = new Event({
     Name: req.body.Name,
-    Code: uuid4()
+    Code: random(options)
   });
   event
     .save()
