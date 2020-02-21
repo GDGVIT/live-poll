@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const socket=require('socket.io');
+const socket = require("socket.io");
 //Middleware
 app.use(bodyParser.json());
 app.use(
@@ -27,9 +27,12 @@ mongoose.connect(
   () => console.log("connected to DB")
 );
 //Setting up server
-const server=app.listen(process.env.PORT, () => console.log("Server is up and running"));
+const server = app.listen(process.env.PORT, () =>
+  console.log("Server is up and running")
+);
 //Setting up socket server
-const io=socket(server);
+const io = socket(server);
+app.set("socketio",io);
 //Calling all routes
 const authRoute = require("./routes/auth");
 const addEvent = require("./routes/addEvent");
@@ -44,8 +47,8 @@ app.use("/api/user", authRoute);
 app.use("/api/addEvent", addEvent);
 app.use("/api/addAction", addAction);
 app.use("/api/addQuestion", addQuestion);
-app.use("/api/addOption",addOption);
-app.use("/api/nextQuestion",nextQuestion);
-app.use("/api/updateStat",updateStat);
-app.use("/api/publishQuestion",publishQuestion);
-chooseOption.start(io);
+app.use("/api/addOption", addOption);
+app.use("/api/nextQuestion", nextQuestion);
+app.use("/api/updateStat", updateStat);
+app.use("/api/publishQuestion", publishQuestion);
+app.use("/api/chooseOption", chooseOption);
