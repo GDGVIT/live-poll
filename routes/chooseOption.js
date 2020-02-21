@@ -1,12 +1,16 @@
 //jshint esversion:6
 const router = require("express").Router();
-
+const Action = require("../model/Action");
+const mutex = require("locks").createMutex();
 router.get("/", (req, _res) => {
   const io = req.app.get("socketio");
   io.on("connection", socket => {
     socket.on("option", data => {
-      data.stat += 1;
-      io.sockets.emit("option", data);
+      mutex.lock(()=>{
+        data.stat += 1;
+        mutex.unlock();
+      });
+      io.emit("option", data);
     });
   });
 });
