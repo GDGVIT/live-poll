@@ -8,7 +8,7 @@ const opt = new mongoose.Schema({
   },
   stat: {
     type: Number,
-    default: 0.0
+    default: 0
   }
 });
 const Question = new mongoose.Schema({
@@ -23,6 +23,10 @@ const Question = new mongoose.Schema({
   correct: {
     type: String,
     required: false
+  },
+  isOpen: {
+    type: Boolean,
+    default: false
   }
 });
 const actionSchema = new mongoose.Schema({
