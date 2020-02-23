@@ -32,7 +32,7 @@ const server = app.listen(process.env.PORT, () =>
 );
 //Setting up socket server
 const io = socket(server);
-app.set("socketio",io);
+app.set("socketio", io);
 //Calling all routes
 const authRoute = require("./routes/auth");
 const addEvent = require("./routes/addEvent");
@@ -43,6 +43,8 @@ const nextQuestion = require("./routes/nextQuestion");
 const updateStat = require("./routes/updateStat");
 const publishQuestion = require("./routes/publishQuestion");
 const chooseOption = require("./routes/chooseOption");
+const getEventdetail = require("./routes/getEventdetail");
+const getActiondetail = require("./routes/getActiondetail");
 app.use("/api/user", authRoute);
 app.use("/api/addEvent", addEvent);
 app.use("/api/addAction", addAction);
@@ -52,3 +54,5 @@ app.use("/api/nextQuestion", nextQuestion);
 app.use("/api/updateStat", updateStat);
 app.use("/api/publishQuestion", publishQuestion);
 app.use("/api/chooseOption", chooseOption);
+app.use("/api/getEventdetail", getEventdetail);
+app.use("/api/getActiondetail", getActiondetail);
