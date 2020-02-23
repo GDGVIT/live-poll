@@ -28,6 +28,13 @@ const loginValidation = data => {
   });
   return schema.validate(data);
 };
+const action_typeValidation = data => {
+  const schema = Joi.object({
+    action_type: Joi.string().required()
+  });
+  return schema.validate(data);
+};
 
+module.exports.action_typeValidation = action_typeValidation;
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;

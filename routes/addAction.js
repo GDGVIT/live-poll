@@ -3,10 +3,15 @@ const router = require("express").Router();
 const Event = require("../model/Event");
 const Action = require("../model/Action");
 const verify = require("./verifyToken");
+const { action_typeValidation } = require("../validation");
 
 router.post("/:event_id", verify, (req, res) => {
   const eventID = req.params.event_id;
-  const type=req.body.action_type;
+  const type = req.body.action_type;
+  const { error } = action_typeValidation(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
   const action = new Action({
     action_type: type
   });
