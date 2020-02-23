@@ -10,9 +10,9 @@ router.get("/:ActionID/:QuestionID/:OptionID", (req, res) => {
     .then(data => {
       let flag = false;
       for (let ac of data.Questions) {
-        if (ac._id === QuestionID) {
+        if (ac._id == QuestionID) {
           for (let opt of ac.options) {
-            if (opt._id === OptionID) {
+            if (opt._id == OptionID) {
               flag = true;
               opt.stat = req.body.stat;
             }
