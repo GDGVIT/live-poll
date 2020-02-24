@@ -3,7 +3,8 @@ const router = require("express").Router();
 const Action = require("../model/Action");
 
 router.get("/:ActionID/:QuestionID", (req, res) => {
-  Action.findById(req.params.ActionID)
+  const actionID = req.params.ActionID;
+  Action.findById(actionID)
     .then(data => {
       const length = data.Questions.length;
       let p = 0;

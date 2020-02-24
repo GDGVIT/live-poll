@@ -3,16 +3,16 @@ const router = require("express").Router();
 const Action = require("../model/Action");
 
 router.get("/:ActionID/:QuestionID/:OptionID", (req, res) => {
-  const ActionID = req.params.ActionID;
-  const QuestionID = req.params.QuestionID;
-  const OptionID = req.params.OptionID;
-  Action.findOne({ _id: ActionID })
+  const actionID = req.params.ActionID;
+  const questionID = req.params.QuestionID;
+  const optionID = req.params.OptionID;
+  Action.findOne({ _id: actionID })
     .then(data => {
       let flag = false;
       for (let ac of data.Questions) {
-        if (ac._id == QuestionID) {
+        if (ac._id == questionID) {
           for (let opt of ac.options) {
-            if (opt._id == OptionID) {
+            if (opt._id == optionID) {
               flag = true;
               opt.stat = req.body.stat;
             }

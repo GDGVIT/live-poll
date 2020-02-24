@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Event = require("../model/Event");
 
 router.get("/:EventID", (req, res) => {
-  const EventID = req.params.EventID;
+  const eventID = req.params.EventID;
   Event.findById(EventID)
     .then(event => {
       res.json(event);

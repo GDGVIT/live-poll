@@ -3,10 +3,10 @@ const router = require("express").Router();
 const Action = require("../model/Action");
 const verify = require("./verifyToken");
 router.get("/:ActionID/:QuestionID", verify, (req, res) => {
-  const ActionID = req.params.ActionID;
-  const QuestionID = req.params.QuestionID;
+  const actionID = req.params.ActionID;
+  const questionID = req.params.QuestionID;
   Action.updateOne(
-    { _id: ActionID, "Questions._id": QuestionID },
+    { _id: actionID, "Questions._id": questionID },
     { $set: { "Questions.$.isOpen": true } },
     err => {
       if (err) {

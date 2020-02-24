@@ -4,9 +4,9 @@ const Action = require("../model/Action");
 const verify = require("./verifyToken");
 
 router.post("/:action_id", verify, async (req, res) => {
-  const ActionID = req.params.action_id;
+  const actionID = req.params.action_id;
   Action.findByIdAndUpdate(
-    ActionID,
+    actionID,
     { $push: { Questions: req.body } },
     err => {
       if (err) {
@@ -14,7 +14,7 @@ router.post("/:action_id", verify, async (req, res) => {
       }
     }
   );
-  await Action.findById(ActionID)
+  await Action.findById(actionID)
     .then(data => {
       const length = data.Questions.length;
       res.json(data.Questions[length - 1]);
