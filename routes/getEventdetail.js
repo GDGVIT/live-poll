@@ -4,7 +4,7 @@ const Event = require("../model/Event");
 
 router.get("/:EventID", (req, res) => {
   const eventID = req.params.EventID;
-  Event.findById(EventID)
+  Event.findById(eventID)
     .then(event => {
       res.json(event);
     })
