@@ -1,10 +1,8 @@
 //jshint esversion:8
-const router = require("express").Router();
-const Action = require("../model/Action");
-const verify = require("./verifyToken");
+const Action = require("../../model/Action");
 
-router.post("/:action_id", verify, async (req, res) => {
-  const actionID = req.params.action_id;
+const addQuestion = async (req, res) => {
+  const actionID = req.params.ActionID;
   Action.findByIdAndUpdate(
     actionID,
     { $push: { Questions: req.body } },
@@ -22,5 +20,5 @@ router.post("/:action_id", verify, async (req, res) => {
     .catch(err => {
       res.json(err);
     });
-});
-module.exports = router;
+};
+module.exports = addQuestion;

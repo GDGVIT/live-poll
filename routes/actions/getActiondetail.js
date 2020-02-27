@@ -1,8 +1,7 @@
 //jshint esversion:6
-const router = require("express").Router();
-const Action = require("../model/Action");
+const Action = require("../../model/Action");
 
-router.get("/:ActionID", (req, res) => {
+const getActiondetail = (req, res) => {
   const actionID = req.params.ActionID;
   Action.findById(actionID)
     .then(action => {
@@ -11,6 +10,6 @@ router.get("/:ActionID", (req, res) => {
     .catch(err => {
       res.json(err);
     });
-});
+};
 
-module.exports = router;
+module.exports = getActiondetail;

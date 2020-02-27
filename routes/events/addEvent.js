@@ -1,9 +1,8 @@
 //jshint esversion:8
-const router = require("express").Router();
-const Event = require("../model/Event");
+const Event = require("../../model/Event");
 const random = require("random-number");
-const verify = require("./verifyToken");
-router.post("/", verify, (req, res) => {
+
+const addEvent = (req, res) => {
   const options = {
     min: 100000,
     max: 999999,
@@ -23,6 +22,6 @@ router.post("/", verify, (req, res) => {
         message: err
       });
     });
-});
+};
 
-module.exports = router;
+module.exports = addEvent;

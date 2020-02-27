@@ -1,8 +1,7 @@
 //jshint esversion:8
-const router = require("express").Router();
-const Action = require("../model/Action");
+const Action = require("../../model/Action");
 
-router.get("/:ActionID/:QuestionID", (req, res) => {
+const nextQuestion = (req, res) => {
   const actionID = req.params.ActionID;
   Action.findById(actionID)
     .then(data => {
@@ -19,6 +18,6 @@ router.get("/:ActionID/:QuestionID", (req, res) => {
     .catch(err => {
       res.json(err);
     });
-});
+};
 
-module.exports = router;
+module.exports = nextQuestion;

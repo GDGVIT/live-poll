@@ -1,9 +1,7 @@
 //jshint esversion:6
-const router = require("express").Router();
-const Action = require("../model/Action");
-const verify = require("./verifyToken");
+const Action = require("../../model/Action");
 
-router.post("/:ActionID/:QuestionID", verify, (req, res) => {
+const addOption = (req, res) => {
   const actionID = req.params.ActionID;
   const questionID = req.params.QuestionID;
   Action.updateOne(
@@ -13,10 +11,10 @@ router.post("/:ActionID/:QuestionID", verify, (req, res) => {
       if (err) {
         res.json(err);
       } else {
-        res.json({"Status":"Successfully added Option"});
+        res.json({ Status: "Successfully added Option" });
       }
     }
   );
-});
+};
 
-module.exports = router;
+module.exports = addOption;

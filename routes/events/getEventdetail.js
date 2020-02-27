@@ -1,8 +1,7 @@
 //jshint esversion:6
-const router = require("express").Router();
-const Event = require("../model/Event");
+const Event = require("../../model/Event");
 
-router.get("/:EventID", (req, res) => {
+const getEventdetail = (req, res) => {
   const eventID = req.params.EventID;
   Event.findById(eventID)
     .then(event => {
@@ -11,6 +10,6 @@ router.get("/:EventID", (req, res) => {
     .catch(err => {
       res.json(err);
     });
-});
+};
 
-module.exports = router;
+module.exports = getEventdetail;

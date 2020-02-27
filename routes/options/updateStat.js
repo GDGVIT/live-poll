@@ -1,8 +1,7 @@
 // jshint esversion:6
-const router = require("express").Router();
-const Action = require("../model/Action");
+const Action = require("../../model/Action");
 
-router.get("/:ActionID/:QuestionID/:OptionID", (req, res) => {
+const updateStat = (req, res) => {
   const actionID = req.params.ActionID;
   const questionID = req.params.QuestionID;
   const optionID = req.params.OptionID;
@@ -36,5 +35,6 @@ router.get("/:ActionID/:QuestionID/:OptionID", (req, res) => {
     .catch(err => {
       res.json(err);
     });
-});
-module.exports = router;
+};
+
+module.exports = updateStat;

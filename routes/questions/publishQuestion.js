@@ -1,8 +1,7 @@
 //jshint esversion:6
-const router = require("express").Router();
-const Action = require("../model/Action");
-const verify = require("./verifyToken");
-router.get("/:ActionID/:QuestionID", verify, (req, res) => {
+const Action = require("../../model/Action");
+
+const publishQuestion = (req, res) => {
   const actionID = req.params.ActionID;
   const questionID = req.params.QuestionID;
   Action.updateOne(
@@ -16,6 +15,6 @@ router.get("/:ActionID/:QuestionID", verify, (req, res) => {
       }
     }
   );
-});
+};
 
-module.exports = router;
+module.exports = publishQuestion;
