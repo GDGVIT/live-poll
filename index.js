@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const dotenv = require("dotenv");
+const dotEnv = require("dotenv");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
 //Middleware
@@ -13,7 +13,7 @@ app.use(
     extended: true
   })
 );
-dotenv.config();
+dotEnv.config();
 app.use(cors());
 
 //Connect to Database
