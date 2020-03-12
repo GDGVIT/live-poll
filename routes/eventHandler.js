@@ -6,6 +6,6 @@ const addEvent = require("./events/addEvent");
 const getEventdetail = require("./events/getEventdetail");
 
 router.post("/addEvent", verify, addEvent);
-router.get("/getEventdetail/:EventID", verify, getEventdetail);
+router.get("/getEventdetail/:EventID", getEventdetail);
 
 module.exports = router;
