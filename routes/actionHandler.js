@@ -6,6 +6,6 @@ const addAction = require("./actions/addAction");
 const getActiondetail = require("./actions/getActiondetail");
 
 router.post("/addAction/:EventID", verify, addAction);
-router.get("/getActiondetail/:ActionID", verify, getActiondetail);
+router.get("/getActiondetail/:ActionID", getActiondetail);
 
 module.exports = router;
