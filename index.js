@@ -6,6 +6,7 @@ const cors = require("cors");
 const dotEnv = require("dotenv");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
+const mutex = require("locks").createMutex();
 //Middleware
 app.use(bodyParser.json());
 app.use(
@@ -32,6 +33,7 @@ const server = app.listen(process.env.PORT, () =>
 //Setting up socket server
 const io = socket(server);
 app.set("socketio", io);
+
 //Calling all routes
 const authRoute = require("./routes/auth");
 const eventHandler = require("./routes/eventHandler");
@@ -39,12 +41,22 @@ const actionHandler = require("./routes/actionHandler");
 const questionHandler = require("./routes/questionHandler");
 const optionHandler = require("./routes/optionHandler");
 
-// io.on("connection", socket => {
-//     console.log("Connected")
-//     socket.on("option", data => {
-//         socket.emit("option", data);
-//     });
-// });
+io.on("connection", sc => {
+    console.log("Connected");
+    sc.on("disconnect", () => {
+        console.log("Disconnected");
+    });
+    sc.on("option", data => {
+        console.log(data);
+        mutex.lock(() => {
+            let data1 = data;
+            data.stat += 1;
+            console.log(data);
+            sc.emit("option", data1);
+            mutex.unlock();
+        });
+    });
+});
 
 app.use("/api/user", authRoute);
 app.use("/api/events", eventHandler);
