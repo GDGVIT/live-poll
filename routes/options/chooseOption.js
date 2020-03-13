@@ -9,7 +9,7 @@ const chooseOption = (req, _res) => {
                 data.stat += 1;
                 mutex.unlock();
             });
-            io.sockets.emit("option", data);
+            socket.emit("option", data);
         });
     });
 };
