@@ -9,9 +9,8 @@ const chooseOption = (req, _res) => {
                 data.stat += 1;
                 mutex.unlock();
             });
-            // io.emit("message", { msg: data });
+            io.sockets.emit("option", data);
         });
-        io.emit("message", { msg: socket });
     });
 };
 
