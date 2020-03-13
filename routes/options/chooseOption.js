@@ -6,10 +6,10 @@ const chooseOption = (req, _res) => {
     io.on("connection", socket => {
         socket.on("option", data => {
             //mutex.lock(() => {
-            data.stat += 1;
+            //data.stat += 1;
             //mutex.unlock();
             //});
-            io.emit("option", data);
+            io.emit("message", "Hey Its Connected");
         });
     });
 };
