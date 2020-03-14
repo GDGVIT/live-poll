@@ -51,7 +51,7 @@ io.on("connection", sc => {
         mutex.lock(() => {
             data.stat += 1;
             console.log(data);
-            sc.emit("option", data);
+            sc.broadcast.emit("option", data);
             mutex.unlock();
         });
     });
