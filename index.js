@@ -41,19 +41,31 @@ const actionHandler = require("./routes/actionHandler");
 const questionHandler = require("./routes/questionHandler");
 const optionHandler = require("./routes/optionHandler");
 
+let oldData = [];
 io.on("connection", sc => {
+    sc.emit("New Connection", oldData);
     console.log("Connected");
     sc.on("disconnect", () => {
         console.log("Disconnected");
     });
     sc.on("option", data => {
-        console.log(data);
         mutex.lock(() => {
             data.stat += 1;
             console.log(data);
             io.sockets.emit("all options", data);
             mutex.unlock();
         });
+        let c = 0;
+        for (let i of oldData) {
+            if (i.id == data.id) {
+                i.stat += 1;
+                c++;
+            }
+        }
+        if (c === 0) {
+            oldData.push(data);
+        }
+        console.log(data);
     });
 });
 
