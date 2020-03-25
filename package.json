@@ -1,0 +1,47 @@
+{
+    "name": "live-poll",
+    "version": "1.0.0",
+    "description": "<p align=\"center\"> \t<img src=\"https://user-images.githubusercontent.com/30529572/72455010-fb38d400-37e7-11ea-9c1e-8cdeb5f5906e.png\" /> \t<h2 align=\"center\"> Live Poll </h2> \t<h4 align=\"center\"> This is the backend of a live-poll website made by DSC-VIT<h4> </p>",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mdhishaamakhtar/live-poll.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/mdhishaamakhtar/live-poll/issues"
+    },
+    "homepage": "https://github.com/mdhishaamakhtar/live-poll#readme",
+    "dependencies": {
+        "@hapi/joi": "^17.1.1",
+        "bcrypt-rust-wasm": "^0.1.8",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "locks": "^0.2.2",
+        "mongoose": "^5.9.6",
+        "nodemon": "^2.0.2",
+        "random-number": "0.0.9",
+        "socket.io": "^2.3.0"
+    },
+    "devDependencies": {
+        "@hapi/joi": "^17.1.1",
+        "bcrypt-rust-wasm": "^0.1.8",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "locks": "^0.2.2",
+        "mongoose": "^5.9.6",
+        "nodemon": "^2.0.2",
+        "random-number": "0.0.9",
+        "socket.io": "^2.3.0"
+    }
+}
