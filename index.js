@@ -57,7 +57,7 @@ io.on("connection", sc => {
         });
         let c = 0;
         for (let i of oldData) {
-            if (i.id == data.id) {
+            if (i._id == data._id) {
                 i.stat += 1;
                 c++;
             }
