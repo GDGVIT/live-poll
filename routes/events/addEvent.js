@@ -18,7 +18,7 @@ const addEvent = async (req, res) => {
             Code: random(options)
         });
         const data = await event.save();
-        User.findByIdAndUpdate(decoded._id, {$push: {events: event._id}});
+        await User.findByIdAndUpdate(decoded._id, {$push: {events: event._id}});
         res.json(data);
     } catch (err) {
         res.json(err);
