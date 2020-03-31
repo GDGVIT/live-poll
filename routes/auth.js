@@ -72,4 +72,18 @@ router.post("/login", async(req, res) => {
         "Auth Token": token
     });
 });
+
+router.get("/getEvents",async(req,res)=>{
+    const token = req.header('auth-token');
+    if(!token){
+        return res.json({"Error":"Access is denied"});
+    }
+    try{
+        const decoded = jwt.verify(token,process.env.TOKEN_SECRET);
+        const user = await User.findById(decoded._id);
+        res.json(user.events);
+    } catch(err){
+        res.json(err)
+    }
+});
 module.exports = router;
