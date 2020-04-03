@@ -67,6 +67,9 @@ io.on("connection", sc => {
         }
         console.log(data);
     });
+    sc.on("next question",data=>{
+        io.sockets.emit("next",data);
+    })
 });
 
 app.use("/api/user", authRoute);
