@@ -13,6 +13,10 @@ const eventSchema = new mongoose.Schema({
     Actions: {
         type: Array,
         default: []
+    },
+    Participants: {
+        type: Number,
+        default: 0
     }
 });
 
