@@ -9,7 +9,7 @@ const closeAction = require("./actions/closeAction");
 
 router.post("/addAction/:EventID", verify, addAction);
 router.get("/getActiondetail/:ActionID", getActiondetail);
-router.get("/openAction/:ActionID",openAction);
-router.get("/closeAction/:ActionID",closeAction);
+router.get("/openAction/:ActionID", openAction);
+router.get("/closeAction/:ActionID", closeAction);
 
 module.exports = router;

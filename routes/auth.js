@@ -1,14 +1,14 @@
 //jshint esversion:8
 const router = require("express").Router();
 const User = require("../model/User");
-const { Bcrypt } = require("bcrypt-rust-wasm");
+const {Bcrypt} = require("bcrypt-rust-wasm");
 const jwt = require("jsonwebtoken");
-const { registerValidation, loginValidation } = require("../validation");
+const {registerValidation, loginValidation} = require("../validation");
 const bcrypt = Bcrypt.new(parseInt(process.env.SALT_ROUNDS));
 //REGISTRATION ROUTE
-router.post("/register", async(req, res) => {
+router.post("/register", async (req, res) => {
     //VALIDATE
-    const { error } = registerValidation(req.body);
+    const {error} = registerValidation(req.body);
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
@@ -42,9 +42,9 @@ router.post("/register", async(req, res) => {
 });
 
 //LOGIN ROUTE
-router.post("/login", async(req, res) => {
+router.post("/login", async (req, res) => {
     //VALIDATE
-    const { error } = loginValidation(req.body);
+    const {error} = loginValidation(req.body);
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
@@ -73,16 +73,16 @@ router.post("/login", async(req, res) => {
     });
 });
 
-router.get("/getEvents",async(req,res)=>{
+router.get("/getEvents", async (req, res) => {
     const token = req.header('auth-token');
-    if(!token){
-        return res.json({"Error":"Access is denied"});
+    if (!token) {
+        return res.json({"Error": "Access is denied"});
     }
-    try{
-        const decoded = jwt.verify(token,process.env.TOKEN_SECRET);
+    try {
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
         const user = await User.findById(decoded._id);
         res.json(user.events);
-    } catch(err){
+    } catch (err) {
         res.json(err)
     }
 });

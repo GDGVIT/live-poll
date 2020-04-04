@@ -3,7 +3,7 @@ const Action = require("../../model/Action");
 
 const nextQuestion = async (req, res) => {
     const actionID = req.params.ActionID;
-    try{
+    try {
         const data = await Action.findById(actionID);
         const length = data.Questions.length;
         let p = 0;
@@ -14,7 +14,7 @@ const nextQuestion = async (req, res) => {
             }
         }
         res.json(data.Questions[p + 1]);
-    } catch(err){
+    } catch (err) {
         res.json(err);
     }
 };

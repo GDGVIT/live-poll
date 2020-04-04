@@ -8,6 +8,7 @@ const publishQuestion = require("./questions/publishQuestion");
 const closeQuestion = require("./questions/closeQuestion");
 const firstQuestion = require("./questions/firstQuestion");
 const publishFirstQuestion = require("./questions/publishFirstQuestion");
+const next = require("./questions/next");
 
 router.post("/addQuestion/:ActionID", verify, addQuestion);
 router.get("/nextQuestion/:ActionID/:QuestionID", nextQuestion);
@@ -15,5 +16,6 @@ router.get("/nextQuestion/:ActionID", firstQuestion);
 router.get("/publishQuestion/:ActionID/:QuestionID", verify, publishQuestion);
 router.get("/publishQuestion/:ActionID", verify, publishFirstQuestion);
 router.get("/closeQuestion/:ActionID/:QuestionID", verify, closeQuestion);
+router.get("/next/:ActionID/:QuestionID", verify, next);
 
 module.exports = router;

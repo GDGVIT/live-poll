@@ -4,7 +4,7 @@ const random = require("random-number");
 const User = require("../../model/User");
 const jwt = require("jsonwebtoken");
 
-const addEvent = async(req, res) => {
+const addEvent = async (req, res) => {
     try {
         const token = req.header('auth-token');
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -18,7 +18,7 @@ const addEvent = async(req, res) => {
             Code: random(options)
         });
         const data = await event.save();
-        await User.findByIdAndUpdate(decoded._id, { $push: { events: event._id } });
+        await User.findByIdAndUpdate(decoded._id, {$push: {events: event._id}});
         res.json(data);
     } catch (err) {
         res.json(err);
