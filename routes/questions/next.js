@@ -15,7 +15,7 @@ const next = async (req, res) => {
             }
         }
         if (flag === 0) {
-            return res.json({"Error": "Question not found"});
+            return res.status(404).json({"Error": "Question not found"});
         }
         action.Questions[p].isOpen = false;
         action.Questions[p + 1].isOpen = true;
