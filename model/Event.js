@@ -17,6 +17,10 @@ const eventSchema = new mongoose.Schema({
     Participants: {
         type: Number,
         default: 0
+    },
+    Date: {
+        type: Date,
+        Default: new Date()
     }
 });
 
