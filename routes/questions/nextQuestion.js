@@ -8,7 +8,7 @@ const nextQuestion = async (req, res) => {
         const length = data.Questions.length;
         let p = 0;
         for (let i = 0; i < length; i++) {
-            if (data.Questions[i]._id === req.params.QuestionID) {
+            if (data.Questions[i]._id == req.params.QuestionID) {
                 p = i;
                 break;
             }
