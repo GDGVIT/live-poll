@@ -8,7 +8,7 @@ const addQuestion = async (req, res) => {
         {$push: {Questions: req.body}},
         err => {
             if (err) {
-                res.json(err);
+                return res.json(err);
             }
         }
     );
