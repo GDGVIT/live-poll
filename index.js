@@ -70,6 +70,9 @@ io.on("connection", sc => {
     sc.on("next question", data => {
         io.sockets.emit("next", data);
     })
+    sc.on("close quiz", data => {
+        io.sockets.emit("quiz ended", data);
+    })
 });
 
 app.use("/api/user", authRoute);
