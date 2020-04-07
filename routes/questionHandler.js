@@ -18,6 +18,6 @@ router.get("/publishQuestion/:ActionID/:QuestionID", verify, publishQuestion);
 router.get("/publishQuestion/:ActionID", verify, publishFirstQuestion);
 router.get("/closeQuestion/:ActionID/:QuestionID", verify, closeQuestion);
 router.get("/next/:ActionID/:QuestionID", verify, next);
-router.post("/addQuestionsAll/:ActionID", addAllQuestion);
+router.post("/addQuestionsAll/:ActionID",verify, addAllQuestion);
 
 module.exports = router;
