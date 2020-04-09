@@ -39,6 +39,10 @@ const actionSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    title: {
+        type: String,
+        required: true
+    },
     isOpen: {
         type: Boolean,
         default: false
