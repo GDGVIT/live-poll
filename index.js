@@ -77,7 +77,7 @@ const clean = (option_ids) => {
 const restore = (option_ids) =>{
     for (let _id of option_ids) {
         for (let i of oldData) {
-            if (_id == i) {
+            if (_id == i._id) {
                 i.stat = 0;
             }
         }
