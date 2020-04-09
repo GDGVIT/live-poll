@@ -54,11 +54,11 @@ const increment = (option_id) => {
     })
     if (flag == 0) {
         oldData.push({
-            stat: 0,
+            stat: 1,
             _id: option_id
         });
         return {
-            stat: 0,
+            stat: 1,
             _id: option_id
         };
     }
