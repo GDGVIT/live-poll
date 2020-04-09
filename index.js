@@ -45,7 +45,7 @@ let oldData = [];
 // Array Functions
 const increment = (option_id) => {
     let flag = 0;
-    oldData.forEach((data) => {
+    for(let data of oldData){
         if (data._id == option_id) {
             data.stat += 1;
             flag = 1;
@@ -53,7 +53,7 @@ const increment = (option_id) => {
             console.log(data);
             return data;
         }
-    })
+    }
     if (flag == 0) {
         oldData.push({
             stat: 1,
