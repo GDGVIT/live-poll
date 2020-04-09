@@ -6,7 +6,7 @@ const {action_typeValidation} = require("../../validation");
 const addAction = (req, res) => {
     const eventID = req.params.EventID;
     const type = req.body.action_type;
-    const title = req.body.title
+    const title = req.body.title;
     const {error} = action_typeValidation(req.body);
     if (error) {
         return res.status(400).send(error.details[0].message);

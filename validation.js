@@ -30,7 +30,8 @@ const loginValidation = data => {
 };
 const action_typeValidation = data => {
     const schema = Joi.object({
-        action_type: Joi.string().required()
+        action_type: Joi.string().required(),
+        title: Joi.string().required()
     });
     return schema.validate(data);
 };
