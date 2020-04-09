@@ -72,6 +72,7 @@ const clean = (option_ids) => {
             }
         }
     }
+    console.log(oldData);
 }
 
 const restore = (option_ids) =>{
@@ -82,6 +83,7 @@ const restore = (option_ids) =>{
             }
         }
     }
+    console.log(oldData)
 }
 
 io.on("connection", sc => {
