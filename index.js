@@ -102,7 +102,7 @@ io.on("connection", sc => {
     })
     sc.on("close quiz", data => {
         clean(data);
-        io.sockets.emit("quiz ended", data);
+        io.sockets.emit("quiz ended", data[0]);
     })
     sc.on("reset options", data =>{
         restore(data);
