@@ -42,36 +42,70 @@ const questionHandler = require("./routes/questionHandler");
 const optionHandler = require("./routes/optionHandler");
 
 let oldData = [];
+// Array Functions
+const increment = (option_id) => {
+    let flag = 0;
+    oldData.forEach((data) => {
+        if (data._id == option_id) {
+            data.stat += 1;
+            flag = 1;
+            return data;
+        }
+    })
+    if (flag == 0) {
+        oldData.push({
+            stat: 0,
+            _id: option_id
+        });
+        return {
+            stat: 0,
+            _id: option_id
+        };
+    }
+}
+
+const clean = (option_ids) => {
+    for (let _id of option_ids) {
+        for (let i = 0; i < oldData.length; i++) {
+            if (_id == oldData[i]._id) {
+                oldData.splice(i, 1);
+            }
+        }
+    }
+}
+
+const restore = (option_ids) =>{
+    for (let _id of option_ids) {
+        for (let i of oldData) {
+            if (_id == i) {
+                i.stat = 0;
+            }
+        }
+    }
+}
+
 io.on("connection", sc => {
     sc.emit("New Connection", oldData);
     console.log("Connected");
     sc.on("disconnect", () => {
         console.log("Disconnected");
     });
-    sc.on("option", data => {
+    sc.on("option", option_id => {
         mutex.lock(() => {
-            data.stat += 1;
-            console.log(data);
-            io.sockets.emit("all options", data);
+            let dataToEmit = increment(option_id);
+            io.sockets.emit("all options", dataToEmit);
             mutex.unlock();
         });
-        let c = 0;
-        for (let i of oldData) {
-            if (i._id == data._id) {
-                i.stat += 1;
-                c++;
-            }
-        }
-        if (c === 0) {
-            oldData.push(data);
-        }
-        console.log(data);
     });
     sc.on("next question", data => {
         io.sockets.emit("next", data);
     })
     sc.on("close quiz", data => {
+        clean(data);
         io.sockets.emit("quiz ended", data);
+    })
+    sc.on("reset options", data =>{
+        restore(data);
     })
 });
 
