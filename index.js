@@ -49,6 +49,7 @@ const increment = (option_id) => {
         if (data._id == option_id) {
             data.stat += 1;
             flag = 1;
+            console.log(option_id);
             console.log(data);
             return data;
         }
