@@ -96,6 +96,7 @@ io.on("connection", sc => {
     sc.on("option", option_id => {
         mutex.lock(() => {
             let dataToEmit = increment(option_id);
+            console.log(dataToEmit);
             io.sockets.emit("all options", dataToEmit);
             mutex.unlock();
         });
