@@ -41,20 +41,77 @@ const actionHandler = require("./routes/actionHandler");
 const questionHandler = require("./routes/questionHandler");
 const optionHandler = require("./routes/optionHandler");
 
+let oldData = [];
+// Array Functions
+const increment = (option_id) => {
+    let flag = 0;
+    for(let data of oldData){
+        if (data._id == option_id) {
+            data.stat += 1;
+            flag = 1;
+            console.log(option_id);
+            console.log(data);
+            return data;
+        }
+    }
+    if (flag == 0) {
+        oldData.push({
+            stat: 1,
+            _id: option_id
+        });
+        return {
+            stat: 1,
+            _id: option_id
+        };
+    }
+}
+
+const clean = (option_ids) => {
+    for (let _id of option_ids) {
+        for (let i = 0; i < oldData.length; i++) {
+            if (_id == oldData[i]._id) {
+                oldData.splice(i, 1);
+            }
+        }
+    }
+    console.log(oldData);
+}
+
+const restore = (option_ids) =>{
+    for (let _id of option_ids) {
+        for (let i of oldData) {
+            if (_id == i._id) {
+                i.stat = 0;
+            }
+        }
+    }
+    console.log(oldData)
+}
+
 io.on("connection", sc => {
+    sc.emit("New Connection", oldData);
     console.log("Connected");
     sc.on("disconnect", () => {
         console.log("Disconnected");
     });
-    sc.on("option", data => {
-        console.log(data);
+    sc.on("option", option_id => {
         mutex.lock(() => {
-            data.stat += 1;
-            console.log(data);
-            io.sockets.emit("all options", data);
+            let dataToEmit = increment(option_id);
+            console.log(dataToEmit);
+            io.sockets.emit("all options", dataToEmit);
             mutex.unlock();
         });
     });
+    sc.on("next question", data => {
+        io.sockets.emit("next", data);
+    })
+    sc.on("close quiz", data => {
+        clean(data);
+        io.sockets.emit("quiz ended", data[0]);
+    })
+    sc.on("reset options", data =>{
+        restore(data);
+    })
 });
 
 app.use("/api/user", authRoute);

@@ -1,7 +1,7 @@
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/30529572/72455010-fb38d400-37e7-11ea-9c1e-8cdeb5f5906e.png" />
 	<h2 align="center"> Live Poll </h2>
-	<h4 align="center"> This is the backend of a live-poll website made by DSC-VIT<h4>
+	<h4 align="center"> This is the backend of a live-poll website made by DSC-VIT</h4>
 </p>
 
 ---
