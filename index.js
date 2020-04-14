@@ -68,6 +68,7 @@ const increment = async (option_id) => {
                 _id: option_id
             }
         }
+        stat = parseInt(stat);
         stat += 1;
         console.log("Updated Stat" + stat);
         await redisSet(option_id, stat);
@@ -107,8 +108,8 @@ io.on("connection", sc => {
         console.log("Disconnected");
     });
     sc.on("option", option_id => {
-        mutex.lock(() => {
-            let dataToEmit = increment(option_id);
+        mutex.lock(async () => {
+            let dataToEmit = await increment(option_id);
             console.log(dataToEmit);
             io.sockets.emit("all options", dataToEmit);
             mutex.unlock();
