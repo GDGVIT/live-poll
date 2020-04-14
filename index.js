@@ -58,33 +58,45 @@ const optionHandler = require("./routes/optionHandler");
 let oldData = [];
 // Array Functions
 const increment = async (option_id) => {
-    let stat = await redisGet(option_id);
-    console.log(stat);
-    if (stat == null) {
-        await redisSet(option_id, 1);
+    try {
+        let stat = await redisGet(option_id);
+        console.log(stat);
+        if (stat == null) {
+            await redisSet(option_id, 1);
+            return {
+                stat: 1,
+                _id: option_id
+            }
+        }
+        stat += 1;
+        console.log("Updated Stat" + stat);
+        await redisSet(option_id, stat);
         return {
-            stat: 1,
+            stat: stat,
             _id: option_id
         }
-    }
-    stat += 1;
-    console.log("Updated Stat" + stat);
-    await redisSet(option_id, stat);
-    return {
-        stat: stat,
-        _id: option_id
+    } catch (err) {
+        console.log(err);
     }
 }
 
 const clean = async (option_ids) => {
-    for (let _id of option_ids) {
-        await redisDel(_id);
+    try {
+        for (let _id of option_ids) {
+            await redisDel(_id);
+        }
+    } catch (err) {
+        console.log(err);
     }
 }
 
 const restore = async (option_ids) => {
-    for (let _id of option_ids) {
-        await redisSet(_id, 0);
+    try {
+        for (let _id of option_ids) {
+            await redisSet(_id, 0);
+        }
+    } catch (err) {
+        console.log(err);
     }
 }
 
@@ -105,12 +117,12 @@ io.on("connection", sc => {
     sc.on("next question", data => {
         io.sockets.emit("next", data);
     })
-    sc.on("close quiz", data => {
-        clean(data);
+    sc.on("close quiz", async data => {
+        await clean(data);
         io.sockets.emit("quiz ended", data[0]);
     })
-    sc.on("reset options", data => {
-        restore(data);
+    sc.on("reset options", async data => {
+        await restore(data);
     })
 });
 
