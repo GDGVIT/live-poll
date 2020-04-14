@@ -6,7 +6,8 @@ const cors = require("cors");
 const dotEnv = require("dotenv");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
-const mutex = require("locks").createMutex();
+const redis = require("redis");
+const {promisify} = require("util");
 //Middleware
 app.use(bodyParser.json());
 app.use(
@@ -23,9 +24,24 @@ mongoose.connect(
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false
-    },
-    () => console.log("connected to DB")
-);
+    }
+)
+    .then(() => console.log("Connected to DB"))
+    .catch(err => {
+        console.log(err)
+    });
+//Connecting to redis
+const client = redis.createClient(process.env.REDIS_URL);
+client.on('connect', () => {
+    console.log('Redis Client Connected');
+});
+client.on('error', (err) => {
+    console.log('Something went wrong ' + err);
+});
+//Creating callbacks to promises
+const redisSet = promisify(client.set).bind(client);
+const redisGet = promisify(client.get).bind(client);
+const redisDel = promisify(client.del).bind(client);
 //Setting up server
 const server = app.listen(process.env.PORT, () =>
     console.log("Server is up and running")
@@ -41,76 +57,70 @@ const actionHandler = require("./routes/actionHandler");
 const questionHandler = require("./routes/questionHandler");
 const optionHandler = require("./routes/optionHandler");
 
-let oldData = [];
 // Array Functions
-const increment = (option_id) => {
-    let flag = 0;
-    for(let data of oldData){
-        if (data._id == option_id) {
-            data.stat += 1;
-            flag = 1;
-            console.log(option_id);
-            console.log(data);
-            return data;
+const increment = async (option_id) => {
+    try {
+        let stat = await redisGet(option_id);
+        console.log(stat);
+        if (stat == null) {
+            await redisSet(option_id, 1);
+            return {
+                stat: 1,
+                _id: option_id
+            }
         }
-    }
-    if (flag == 0) {
-        oldData.push({
-            stat: 1,
-            _id: option_id
-        });
+        stat = parseInt(stat);
+        stat += 1;
+        console.log("Updated Stat" + stat);
+        await redisSet(option_id, stat);
         return {
-            stat: 1,
+            stat: stat,
             _id: option_id
-        };
+        }
+    } catch (err) {
+        console.log(err);
     }
 }
 
-const clean = (option_ids) => {
-    for (let _id of option_ids) {
-        for (let i = 0; i < oldData.length; i++) {
-            if (_id == oldData[i]._id) {
-                oldData.splice(i, 1);
-            }
+const clean = async (option_ids) => {
+    try {
+        for (let _id of option_ids) {
+            await redisDel(_id);
         }
+    } catch (err) {
+        console.log(err);
     }
-    console.log(oldData);
 }
 
-const restore = (option_ids) =>{
-    for (let _id of option_ids) {
-        for (let i of oldData) {
-            if (_id == i._id) {
-                i.stat = 0;
-            }
+const restore = async (option_ids) => {
+    try {
+        for (let _id of option_ids) {
+            await redisSet(_id, 0);
         }
+    } catch (err) {
+        console.log(err);
     }
-    console.log(oldData)
 }
 
 io.on("connection", sc => {
-    sc.emit("New Connection", oldData);
     console.log("Connected");
     sc.on("disconnect", () => {
         console.log("Disconnected");
     });
-    sc.on("option", option_id => {
-        mutex.lock(() => {
-            let dataToEmit = increment(option_id);
-            console.log(dataToEmit);
-            io.sockets.emit("all options", dataToEmit);
-            mutex.unlock();
-        });
+    sc.on("option", async option_id => {
+        let dataToEmit = await increment(option_id);
+        console.log(dataToEmit);
+        io.sockets.emit("all options", dataToEmit);
     });
     sc.on("next question", data => {
         io.sockets.emit("next", data);
     })
-    sc.on("close quiz", data => {
-        clean(data);
+    sc.on("close quiz", async data => {
+        await clean(data);
         io.sockets.emit("quiz ended", data[0]);
     })
-    sc.on("reset options", data =>{
-        restore(data);
+    sc.on("reset options", async data => {
+        await restore(data);
     })
 });
 
