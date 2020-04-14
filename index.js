@@ -6,7 +6,6 @@ const cors = require("cors");
 const dotEnv = require("dotenv");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
-const mutex = require("locks").createMutex();
 const redis = require("redis");
 const {promisify} = require("util");
 //Middleware
@@ -55,7 +54,6 @@ const actionHandler = require("./routes/actionHandler");
 const questionHandler = require("./routes/questionHandler");
 const optionHandler = require("./routes/optionHandler");
 
-let oldData = [];
 // Array Functions
 const increment = async (option_id) => {
     try {
@@ -107,13 +105,10 @@ io.on("connection", sc => {
     sc.on("disconnect", () => {
         console.log("Disconnected");
     });
-    sc.on("option", option_id => {
-        mutex.lock(async () => {
-            let dataToEmit = await increment(option_id);
-            console.log(dataToEmit);
-            io.sockets.emit("all options", dataToEmit);
-            mutex.unlock();
-        });
+    sc.on("option", async option_id => {
+        let dataToEmit = await increment(option_id);
+        console.log(dataToEmit);
+        io.sockets.emit("all options", dataToEmit);
     });
     sc.on("next question", data => {
         io.sockets.emit("next", data);
