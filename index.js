@@ -7,6 +7,8 @@ const dotEnv = require("dotenv");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
 const mutex = require("locks").createMutex();
+const redis = require("redis");
+const {promisify} = require("util");
 //Middleware
 app.use(bodyParser.json());
 app.use(
@@ -26,6 +28,18 @@ mongoose.connect(
     },
     () => console.log("connected to DB")
 );
+//Connecting to redis
+const client = redis.createClient();
+client.connect('connect', () => {
+    console.log('Redis Client Connected');
+});
+client.on('error', (err) => {
+    console.log('Something went wrong ' + err);
+});
+//Creating callbacks to promises
+const redisSet = promisify(client.set).bind(client);
+const redisGet = promisify(client.get).bind(client);
+const redisDel = promisify(client.del).bind(client);
 //Setting up server
 const server = app.listen(process.env.PORT, () =>
     console.log("Server is up and running")
@@ -43,49 +57,35 @@ const optionHandler = require("./routes/optionHandler");
 
 let oldData = [];
 // Array Functions
-const increment = (option_id) => {
-    let flag = 0;
-    for(let data of oldData){
-        if (data._id == option_id) {
-            data.stat += 1;
-            flag = 1;
-            console.log(option_id);
-            console.log(data);
-            return data;
-        }
-    }
-    if (flag == 0) {
-        oldData.push({
-            stat: 1,
-            _id: option_id
-        });
+const increment = async (option_id) => {
+    let stat = await redisGet(option_id);
+    console.log(stat);
+    if (stat == null) {
+        await redisSet(option_id, 1);
         return {
             stat: 1,
             _id: option_id
-        };
+        }
+    }
+    stat += 1;
+    console.log("Updated Stat" + stat);
+    await redisSet(option_id, stat);
+    return {
+        stat: stat,
+        _id: option_id
     }
 }
 
-const clean = (option_ids) => {
+const clean = async (option_ids) => {
     for (let _id of option_ids) {
-        for (let i = 0; i < oldData.length; i++) {
-            if (_id == oldData[i]._id) {
-                oldData.splice(i, 1);
-            }
-        }
+        await redisDel(_id);
     }
-    console.log(oldData);
 }
 
-const restore = (option_ids) =>{
+const restore = async (option_ids) => {
     for (let _id of option_ids) {
-        for (let i of oldData) {
-            if (_id == i._id) {
-                i.stat = 0;
-            }
-        }
+        await redisSet(_id, 0);
     }
-    console.log(oldData)
 }
 
 io.on("connection", sc => {
@@ -109,7 +109,7 @@ io.on("connection", sc => {
         clean(data);
         io.sockets.emit("quiz ended", data[0]);
     })
-    sc.on("reset options", data =>{
+    sc.on("reset options", data => {
         restore(data);
     })
 });
