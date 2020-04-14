@@ -100,7 +100,6 @@ const restore = async (option_ids) => {
 }
 
 io.on("connection", sc => {
-    sc.emit("New Connection", oldData);
     console.log("Connected");
     sc.on("disconnect", () => {
         console.log("Disconnected");
