@@ -24,9 +24,12 @@ mongoose.connect(
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false
-    },
-    () => console.log("connected to DB")
-);
+    }
+)
+    .then(() => console.log("Connected to DB"))
+    .catch(err => {
+        console.log(err)
+    });
 //Connecting to redis
 const client = redis.createClient(process.env.REDIS_URL);
 client.on('connect', () => {
