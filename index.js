@@ -30,7 +30,7 @@ mongoose.connect(
 );
 //Connecting to redis
 const client = redis.createClient(process.env.REDIS_URL);
-client.connect('connect', () => {
+client.on('connect', () => {
     console.log('Redis Client Connected');
 });
 client.on('error', (err) => {
