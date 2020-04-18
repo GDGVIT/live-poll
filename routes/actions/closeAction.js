@@ -10,6 +10,7 @@ const closeAction = async (req, res) => {
                 question.isOpen = false;
             }
         }
+        await action.save();
         res.json({"Status": "Successfully Closed Action"});
     } catch (err) {
         res.json(err);
