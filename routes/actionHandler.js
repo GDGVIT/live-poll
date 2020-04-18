@@ -6,10 +6,12 @@ const addAction = require("./actions/addAction");
 const getActiondetail = require("./actions/getActiondetail");
 const openAction = require("./actions/openAction");
 const closeAction = require("./actions/closeAction");
+const getBasicAction = require("./actions/getBasicAction");
 
 router.post("/addAction/:EventID", verify, addAction);
 router.get("/getActiondetail/:ActionID", getActiondetail);
 router.get("/openAction/:ActionID", openAction);
 router.get("/closeAction/:ActionID", closeAction);
+router.get("/getBasicAction/:ActionID", getBasicAction);
 
 module.exports = router;
