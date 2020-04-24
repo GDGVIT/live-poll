@@ -12,6 +12,6 @@ router.post("/addEvent", verify, addEvent);
 router.get("/getEventdetail/:EventID", getEventdetail);
 router.get("/getEvent/:Code", getEvent);
 router.get("/updateParticipant/:Code", updateParticipants);
-router.delete("/deleteEvent/:EventID",deleteEvent);
+router.delete("/deleteEvent/:EventID",verify,deleteEvent);
 
 module.exports = router;
