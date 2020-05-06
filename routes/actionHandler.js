@@ -14,6 +14,6 @@ router.get("/getActiondetail/:ActionID", getActiondetail);
 router.get("/openAction/:ActionID", openAction);
 router.get("/closeAction/:ActionID", closeAction);
 router.get("/getBasicAction/:ActionID", getBasicAction);
-router.delete("/deleteAction/:ActionID",verify,deleteAction);
+router.delete("/deleteAction/:EventID/:ActionID",verify, deleteAction);
 
 module.exports = router;
