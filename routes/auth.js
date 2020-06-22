@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
     //VALIDATE
     const {error} = registerValidation(req.body);
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).json({message: error.details[0].message});
     }
 
     //CHECK FOR EXISTING email
