@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
     //VALIDATE
     const {error} = registerValidation(req.body);
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).json({message: error.details[0].message});
     }
 
     //CHECK FOR EXISTING email
@@ -18,7 +18,7 @@ router.post("/register", async (req, res) => {
         email: req.body.email
     });
     if (emailExists) {
-        return res.status(400).send("Email already exists");
+        return res.status(400).json({message: "Email already exists"});
     }
 
     //HASH PASSWORDS
@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
     //VALIDATE
     const {error} = loginValidation(req.body);
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).json({message: error.details[0].message});
     }
 
     //CHECK FOR EXISTING EMAIL
@@ -54,12 +54,12 @@ router.post("/login", async (req, res) => {
         email: req.body.email
     });
     if (!user) {
-        return res.status(404).send("Email doesnt exist");
+        return res.status(404).json({message: "Email doesnt exist"});
     }
     //PASSWORD IS CORRECT
     const validPass = bcrypt.verifySync(req.body.password, user.password);
     if (!validPass) {
-        return res.status(401).send("Password is wrong");
+        return res.status(401).send({message: "Password is wrong"});
     }
 
     //Create a Token
