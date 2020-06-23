@@ -72,7 +72,6 @@ const io = socket(server,{
         'Access-Control-Allow-Credentials': true
     }
 });
-io.set("origins","https://poll.dscomg.com:* https://hermes.dscvit.com:* https://dsc-hermes.netlify.app:* http://103.240.96.114:* http://122.178.238.54:*")
 
 //Calling all routes
 const authRoute = require("./routes/auth");
