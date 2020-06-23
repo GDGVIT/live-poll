@@ -11,6 +11,7 @@ const {promisify} = require("util");
 const http = require('http');
 const https = require('https');
 const fs = require("fs");
+const morgan = require("morgan")
 
 const allowedOrigins = ["https://poll.dscomg.com","https://hermes.dscvit.com","https://dsc-hermes.netlify.app","http://103.240.96.114","http://122.178.238.54"]
 //Middleware
@@ -26,7 +27,7 @@ app.use(cors({
             callback(null, true)
     }
 }));
-
+app.use(morgan("dev"))
 //Connect to Database
 mongoose.connect(
     process.env.DB_CONNECTION, {
@@ -68,7 +69,7 @@ try {
 }
 const io = socket(server,{
     extraHeaders: {
-        'Access-Control-Allow-Origins': true
+        'Access-Control-Allow-Credentials': true
     }
 });
 io.set("origins","https://poll.dscomg.com:* https://hermes.dscvit.com:* https://dsc-hermes.netlify.app:* http://103.240.96.114:* http://122.178.238.54:*")
