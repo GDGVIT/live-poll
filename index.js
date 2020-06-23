@@ -145,4 +145,3 @@ app.use("/api/events", eventHandler);
 app.use("/api/actions", actionHandler);
 app.use("/api/questions", questionHandler);
 app.use("/api/options", optionHandler);
-}
