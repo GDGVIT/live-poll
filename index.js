@@ -43,7 +43,7 @@ const redisSet = promisify(client.set).bind(client);
 const redisGet = promisify(client.get).bind(client);
 const redisDel = promisify(client.del).bind(client);
 //Setting up server
-const server = app.listen(process.env.PORT, () =>
+const server = app.listen(process.env.PORT || 3000, () =>
     console.log("Server is up and running")
 );
 //Setting up socket server
