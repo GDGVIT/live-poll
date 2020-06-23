@@ -12,11 +12,7 @@ const http = require('http');
 const https = require('https');
 const fs = require("fs");
 
-
-const corsOptions = {
-    origin: ["poll.dscomg.com","hermes.dscvit.com","dsc-hermes.netlify.app","103.240.96.114","122.178.238.54"],
-    optionsSuccessStatus: 200
-}
+const allowedOrigins = ["https://poll.dscomg.com","https://hermes.dscvit.com","https://dsc-hermes.netlify.app","http://103.240.96.114","http://122.178.238.54"]
 //Middleware
 app.use(bodyParser.json());
 app.use(
@@ -25,7 +21,17 @@ app.use(
     })
 );
 dotEnv.config();
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: function(origin, callback){
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){
+            const msg = 'The CORS policy for this site does not ' +
+              'allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    }
+}));
 
 //Connect to Database
 mongoose.connect(
