@@ -54,19 +54,18 @@ const redisGet = promisify(client.get).bind(client);
 const redisDel = promisify(client.del).bind(client);
 
 // setting up HTTP(s) servers
-/*
 const httpServer = http.createServer(app);
 let server = httpServer.listen(process.env.PORT || 3000, () => {
 	console.log("listening on HTTP");
 }); 
-*/
 
-
+/*
 const privateKey  = fs.readFileSync('./sslcert/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('./sslcert/cert.pem', 'utf8');
 const httpsServer = https.createServer({key: privateKey, cert: certificate}, app);
 const server = httpsServer.listen(process.env.SSL_PORT || 3443);
 console.log("Listening on HTTPS");
+*/
 
 
 const io = socket(server);
