@@ -12,6 +12,11 @@ const http = require('http');
 const https = require('https');
 const fs = require("fs");
 
+
+const corsOptions = {
+    origin: ["poll.dscomg.com","hermes.dscvit.com","dsc-hermes.netlify.app","103.240.96.114","122.178.238.54"],
+    optionsSuccessStatus: 200
+}
 //Middleware
 app.use(bodyParser.json());
 app.use(
@@ -20,7 +25,7 @@ app.use(
     })
 );
 dotEnv.config();
-app.use(cors());
+app.use(cors(corsOptions));
 
 //Connect to Database
 mongoose.connect(
