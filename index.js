@@ -67,11 +67,7 @@ try {
 } catch (err) {
 	console.info("HTTPS not available");
 }
-const io = socket(server,{
-    extraHeaders: {
-        'Access-Control-Allow-Credentials': true
-    }
-});
+const io = socket(server);
 
 //Calling all routes
 const authRoute = require("./routes/auth");
