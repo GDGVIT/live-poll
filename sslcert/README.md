@@ -1,1 +1,1 @@
-### server.key and server.srt goes here
+### cert.pem and privkey.pem go in this directory

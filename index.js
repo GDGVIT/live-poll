@@ -46,22 +46,18 @@ client.on('error', (err) => {
 const redisSet = promisify(client.set).bind(client);
 const redisGet = promisify(client.get).bind(client);
 const redisDel = promisify(client.del).bind(client);
-//Setting up server
-/* const server = app.listen(process.env.PORT || 3000, () =>
-    console.log("Server is up and running")
-) */;
-//Setting up socket server
 
+// setting up HTTP(s) servers
 const httpServer = http.createServer(app);
-
 let server = httpServer.listen(process.env.PORT || 3000, () => {
 	console.log("listening on HTTP");
 });
 try {
-	const privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
-	const certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+	const privateKey  = fs.readFileSync('./sslcert/privkey.pem', 'utf8');
+	const certificate = fs.readFileSync('./sslcert/cert.pem', 'utf8');
 	const httpsServer = https.createServer({key: privateKey, cert: certificate}, app);
-	server = httpsServer.listen(443);
+	server = httpsServer.listen(process.env.SSL_PORT || 3443);
+	console.log("Listening on HTTPS");
 } catch (err) {
 	console.info("HTTPS not available");
 }
