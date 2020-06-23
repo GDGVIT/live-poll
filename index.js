@@ -24,12 +24,11 @@ dotEnv.config();
 app.use(cors({
     origin: function(origin, callback){
         if(!origin) return callback(null, true);
-        if(allowedOrigins.indexOf(origin) === -1){
-            const msg = 'The CORS policy for this site does not ' +
-              'allow access from the specified Origin.';
-            return callback(new Error(msg), false);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
         }
-        return callback(null, true);
     }
 }));
 
@@ -73,7 +72,7 @@ try {
 	console.info("HTTPS not available");
 }
 const io = socket(server);
-app.set("socketio", io);
+io.set("origins","https://poll.dscomg.com:* https://hermes.dscvit.com:* https://dsc-hermes.netlify.app:* http://103.240.96.114:* http://122.178.238.54:*")
 
 //Calling all routes
 const authRoute = require("./routes/auth");
