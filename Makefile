@@ -9,13 +9,12 @@ stack-deploy:
 
 .PHONY: deploy
 deploy:
-	@cd live-poll
 	@echo removing stack...
 	@docker stack rm hermes
 	@echo pulling image....
 	@docker pull angadsharma1016/hermes-backend
 	@echo deploying....
-	@env $(shell cat .env | xargs) docker stack deploy -c docker-stack.yml hermes
+	@env $(shell cat .env | xargs) docker stack deploy -c ./live-poll/docker-stack.yml hermes
 	@echo sleep for 2 seconds...
 	@sleep 2
 	@docker service logs hermes_backend
