@@ -17,4 +17,4 @@ deploy:
 	@env $(shell cat .env | xargs) docker stack deploy -c docker-stack.yml hermes
 	@echo sleep for 2 seconds...
 	@sleep 2
-	@docker service logs hermes_backend
+	@docker service ls
