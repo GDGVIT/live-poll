@@ -25,7 +25,7 @@ dotEnv.config();
 app.use(cors({
     origin: function(origin, callback){
             callback(null, true)
-    }
+    },credentials: true
 }));
 app.use(morgan("dev"))
 //Connect to Database
