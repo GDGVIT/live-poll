@@ -66,7 +66,11 @@ try {
 } catch (err) {
 	console.info("HTTPS not available");
 }
-const io = socket(server);
+const io = socket(server,{
+    extraHeaders: {
+        'Access-Control-Allow_Origins': true
+    }
+});
 io.set("origins","https://poll.dscomg.com:* https://hermes.dscvit.com:* https://dsc-hermes.netlify.app:* http://103.240.96.114:* http://122.178.238.54:*")
 
 //Calling all routes
