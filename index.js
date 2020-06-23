@@ -12,10 +12,15 @@ const http = require('http');
 const https = require('https');
 const fs = require("fs");
 
-
+const whitelist = ["https://poll.dscomg.com","https://hermes.dscvit.com","https://dsc-hermes.netlify.app","http://103.240.96.114","http://122.178.238.54"]
 const corsOptions = {
-    origin: ["poll.dscomg.com","hermes.dscvit.com","dsc-hermes.netlify.app","103.240.96.114","122.178.238.54"],
-    optionsSuccessStatus: 200
+    origin: function(origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
 }
 //Middleware
 app.use(bodyParser.json());
