@@ -1,0 +1,48 @@
+version: "3.0"
+
+services:
+  db0:
+    image: mongo:latest
+    hostname: db0
+    env_file: ./.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
+    volumes:
+      - ./persistence/db0:/data/db
+    # entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+
+  redis:
+    image: redis:latest
+    env_file: ./.env
+    ports:
+      - "6379"
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    command: "redis-server --requirepass $REDIS_PASSWORD"
+    volumes:
+      - ./persistence/redis:/data
+
+
+  backend:
+    image: angadsharma1016/hermes-backend
+    env_file: ./.env
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - db0
+      - redis
+    ports:
+      - 80:3000
+
+volumes:
+  db:
+  redis:
