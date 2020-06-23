@@ -8,6 +8,10 @@ const mongoose = require("mongoose");
 const socket = require("socket.io");
 const redis = require("redis");
 const {promisify} = require("util");
+const http = require('http');
+const https = require('https');
+const fs = require("fs");
+
 //Middleware
 app.use(bodyParser.json());
 app.use(
@@ -43,10 +47,24 @@ const redisSet = promisify(client.set).bind(client);
 const redisGet = promisify(client.get).bind(client);
 const redisDel = promisify(client.del).bind(client);
 //Setting up server
-const server = app.listen(process.env.PORT || 3000, () =>
+/* const server = app.listen(process.env.PORT || 3000, () =>
     console.log("Server is up and running")
-);
+) */;
 //Setting up socket server
+
+const httpServer = http.createServer(app);
+
+let server = httpServer.listen(process.env.PORT || 3000, () => {
+	console.log("listening on HTTP");
+});
+try {
+	const privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+	const certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+	const httpsServer = https.createServer({key: privateKey, cert: certificate}, app);
+	server = httpsServer.listen(443);
+} catch (err) {
+	console.info("HTTPS not available");
+}
 const io = socket(server);
 app.set("socketio", io);
 
