@@ -32,6 +32,7 @@ services:
       - redis
     ports:
       - 80:3000
+      - 443:3443
 
 volumes:
   db:
