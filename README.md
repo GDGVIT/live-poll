@@ -1,7 +1,8 @@
-<p align="center">
-	<img src="https://user-images.githubusercontent.com/30529572/72455010-fb38d400-37e7-11ea-9c1e-8cdeb5f5906e.png" />
-	<h2 align="center"> Live Poll </h2>
-	<h4 align="center"> This is the backend of a live-poll website made by DSC-VIT</h4>
+<a href="https://dscvit.com">
+	<img src="https://user-images.githubusercontent.com/30529572/92081025-fabe6f00-edb1-11ea-9169-4a8a61a5dd45.png" alt="DSC VIT"/>
+</a>
+	<h2 align="center"> Hermes </h2>
+	<h4 align="center"> Hermes Backend Repo <h4>
 </p>
 
 ---
@@ -43,13 +44,28 @@ npm start
 <br>
 
 ## Contributors
+<table>
+<tr align="center">
 
-* [Md Hishaam Akhtar](https://github.com/mdhishaamakhtar)
-* [Angad Sharma](https://github.com/L04DB4L4NC3R)
 
-<br>
-<br>
+<td>
+
+Md Hishaam Akhtar
+
 <p align="center">
-	Made with :heart: by DSC VIT
+<img src = "https://media-exp1.licdn.com/dms/image/C5103AQF78B1xleVjmg/profile-displayphoto-shrink_400_400/0?e=1607558400&v=beta&t=jRTsMIJ6xhHmO4CcqPlssvT2_zkfpWg4nymMn8G1XXU" width="150" height="150" alt="Md Hishaam Akhtar">
+</p>
+<p align="center">
+<a href = "https://github.com/mdhishaamakhtar"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+<a href = "https://www.linkedin.com/in/mdhishaamakhtar">
+<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+</a>
+</p>
+</td>
+</tr>
+  </table>
+
+<p align="center">
+	Made with :heart: by <a href="https://dscvit.com">DSC VIT</a>
 </p>
 
