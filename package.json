@@ -19,7 +19,7 @@
     "homepage": "https://github.com/mdhishaamakhtar/live-poll#readme",
     "dependencies": {
         "@hapi/joi": "^17.1.1",
-        "bcrypt-rust-wasm": "^0.1.8",
+        "bcrypt-rust-wasm": "^0.1.9",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
