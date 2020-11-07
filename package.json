@@ -27,12 +27,12 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.9.6",
         "morgan": "^1.10.0",
-        "nodemon": "^2.0.2",
+        "nodemon": "^2.0.5",
         "random-number": "0.0.9",
         "redis": "^3.0.2",
         "socket.io": "^2.3.0"
     },
     "devDependencies": {
-        "nodemon": "^2.0.2"
+        "nodemon": "^2.0.5"
     }
 }
