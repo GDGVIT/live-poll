@@ -8,7 +8,7 @@ const deleteEvent = async (req, res) => {
     const event = await Event.findByIdAndDelete(eventId)
     const user = await User.findById(req.user._id)
     for (let a = 0; a < user.events.length; a++) {
-      if (user.events[a] === eventId) {
+      if (user.events[a] == eventId) {
         user.events.splice(a, 1)
       }
     }
