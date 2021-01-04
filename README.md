@@ -2,16 +2,15 @@
 	<img src="https://user-images.githubusercontent.com/30529572/92081025-fabe6f00-edb1-11ea-9169-4a8a61a5dd45.png" alt="DSC VIT"/>
 </a>
 	<h2 align="center"> Hermes </h2>
-	<h4 align="center"> Hermes Backend Repo <h4>
-</p>
+	<h4 align="center"> Hermes Backend </h4>
 
 ---
 [![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://documenter.getpostman.com/view/9876592/SzKQwzQY) 
-  [![UI](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](https://mighty-sea-62531.herokuapp.com/)
+  [![UI](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](https://hermes.dscvit.com)
 
 ## Functionalities
 
-- [x]  Basic login and register route using JSON Web Tokens
+- [x]  A basic login and register route using JSON Web Tokens
 - [x]  Route for adding an Event
 - [x]  Route for adding an Action in the Event
 - [x]  Route for adding a Question in the Action
@@ -23,6 +22,13 @@
 - [x]  Route to get event and action details
 
 <br>
+
+## Tech Stack Used
+<img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
+<img src="https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/> 
+<img src="https://img.shields.io/badge/express.js%20-%23404d59.svg?&style=for-the-badge"/>
+
 
 ## Instructions to run
 
