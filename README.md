@@ -53,7 +53,7 @@ npm start
 Md Hishaam Akhtar
 
 <p align="center">
-<img src = "https://media-exp1.licdn.com/dms/image/C5103AQF78B1xleVjmg/profile-displayphoto-shrink_400_400/0?e=1607558400&v=beta&t=jRTsMIJ6xhHmO4CcqPlssvT2_zkfpWg4nymMn8G1XXU" width="150" height="150" alt="Md Hishaam Akhtar">
+<img src = "https://user-images.githubusercontent.com/58990970/103586688-9cde9700-4f0b-11eb-915c-0d8b9a555159.JPG" width="150" height="150" alt="Md Hishaam Akhtar">
 </p>
 <p align="center">
 <a href = "https://github.com/mdhishaamakhtar"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
