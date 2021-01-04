@@ -12,8 +12,8 @@
         "type": "git",
         "url": "git+https://github.com/mdhishaamakhtar/live-poll.git"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "Md Hishaam Akhtar",
+    "license": "GNU GENERAL PUBLIC LICENSE",
     "bugs": {
         "url": "https://github.com/mdhishaamakhtar/live-poll/issues"
     },
