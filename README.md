@@ -3,6 +3,7 @@
 </a>
 	<h2 align="center"> Hermes </h2>
 	<h4 align="center"> Hermes Backend </h4>
+</p>
 
 ---
 [![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://documenter.getpostman.com/view/9876592/SzKQwzQY) 
