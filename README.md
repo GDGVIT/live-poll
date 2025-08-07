@@ -2,11 +2,11 @@
     <img src="https://user-images.githubusercontent.com/30529572/72455010-fb38d400-37e7-11ea-9c1e-8cdeb5f5906e.png" />
 </a>
 
-# Live Poll Backend System
+# Hermes: Live Poll Backend System
 
 ## Overview
 
-Live Poll is a comprehensive real-time polling and quiz management system developed as part of the Google Developer Student Clubs (GDSC) VIT initiative. The system enables organizers to create interactive polling events with live audience participation, featuring real-time vote tracking, multi-question quizzes, and comprehensive event management capabilities.
+Hermes: Live Poll is a comprehensive real-time polling and quiz management system developed as part of the Google Developer Student Clubs (GDSC) VIT initiative. The system enables organizers to create interactive polling events with live audience participation, featuring real-time vote tracking, multi-question quizzes, and comprehensive event management capabilities.
 
 ## System Architecture
 
