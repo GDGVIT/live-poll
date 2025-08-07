@@ -1,78 +1,275 @@
 <a href="https://dscvit.com">
-	<img src="https://user-images.githubusercontent.com/30529572/92081025-fabe6f00-edb1-11ea-9169-4a8a61a5dd45.png" alt="DSC VIT"/>
+    <img src="https://user-images.githubusercontent.com/30529572/72455010-fb38d400-37e7-11ea-9c1e-8cdeb5f5906e.png" />
 </a>
-	<h2 align="center"> Hermes </h2>
-	<h4 align="center"> Hermes Backend </h4>
-</p>
 
----
-[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://documenter.getpostman.com/view/9876592/SzKQwzQY) 
-  [![UI](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](https://hermes.dscvit.com)
+# Live Poll Backend System
 
-## Functionalities
+## Overview
 
-- [x]  A basic login and register route using JSON Web Tokens
-- [x]  Route for adding an Event
-- [x]  Route for adding an Action in the Event
-- [x]  Route for adding a Question in the Action
-- [x]  Route for adding options in a given question in an action
-- [x]  Route for going to the next Question
-- [x]  Route for publishing the Question
-- [x]  Socket connection for choosing the option
-- [x]  Route to unpublish the question
-- [x]  Route to get event and action details
+Live Poll is a comprehensive real-time polling and quiz management system developed as part of the Google Developer Student Clubs (GDSC) VIT initiative. The system enables organizers to create interactive polling events with live audience participation, featuring real-time vote tracking, multi-question quizzes, and comprehensive event management capabilities.
 
-<br>
+## System Architecture
 
-## Tech Stack Used
-<img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
-<img src="https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/> 
-<img src="https://img.shields.io/badge/express.js%20-%23404d59.svg?&style=for-the-badge"/>
+The application implements a hierarchical data structure designed for scalable event management:
 
+- **Users** → Create and manage multiple **Events**
+- **Events** → Contain multiple **Actions** (polls/quizzes)
+- **Actions** → Comprise multiple **Questions**
+- **Questions** → Include multiple **Options** with real-time vote statistics
 
-## Instructions to run
+## Core Technologies
 
-* Pre-requisites:
-	-  Node.js and npm
-	-  All packages mentioned in package.json
+<img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
+<img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"/>
+<img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white"/>
+<img src="https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101"/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
 
-* First install all packages
-```bash
-npm install
+## Documentation Resources
+
+[![API Documentation](https://img.shields.io/badge/API%20Documentation-Postman-orange?style=for-the-badge&logo=postman)](https://documenter.getpostman.com/view/9876592/SzKQwzQY)
+[![User Interface](https://img.shields.io/badge/User%20Interface-Live%20Demo-blue?style=for-the-badge&logo=web)](https://hermes.dscvit.com)
+[![API Reference](https://img.shields.io/badge/API%20Reference-Markdown-green?style=for-the-badge&logo=markdown)](./API_DOCUMENTATION.md)
+
+## Key Features
+
+### Authentication & Security
+- **JWT-based Authentication**: Secure token-based user authentication system
+- **Password Encryption**: Bcrypt implementation with configurable salt rounds
+- **Route Protection**: Middleware-based access control for administrative functions
+- **Input Validation**: Comprehensive request validation using Joi schema validation
+
+### Event Management
+- **Unique Event Codes**: Automatic generation of 6-digit event access codes
+- **Real-time Participant Tracking**: Live participant count updates
+- **Event Lifecycle Management**: Complete CRUD operations for event administration
+- **User Association**: Events linked to creator accounts with ownership validation
+
+### Interactive Polling System
+- **Multi-format Actions**: Support for polls, quizzes, and interactive questionnaires
+- **Question Sequencing**: Ordered question navigation with state management
+- **Real-time Vote Tracking**: Redis-powered live vote counting and statistics
+- **Live Broadcasting**: Socket.IO integration for instant result updates
+
+### Real-time Communication
+- **WebSocket Integration**: Bi-directional real-time communication
+- **Live Vote Updates**: Instant vote count broadcasting to all participants
+- **Question Navigation**: Real-time question transitions and state synchronization
+- **Event State Management**: Live status updates for events, actions, and questions
+
+## System Requirements
+
+### Prerequisites
+- **Node.js**: Version 14.0 or higher
+- **MongoDB**: Version 4.0 or higher
+- **Redis**: Version 5.0 or higher
+- **npm**: Version 6.0 or higher
+
+### Environment Configuration
+Create a `.env` file with the following variables:
+
+```env
+DB_CONNECTION=mongodb://localhost:27017/livepoll
+REDIS_URL=redis://localhost:6379
+TOKEN_SECRET=your_jwt_secret_key
+SALT_ROUNDS=12
+PORT=3000
+SSL_PORT=3443
+MONGO_INITDB_ROOT_USERNAME=admin
+MONGO_INITDB_ROOT_PASSWORD=password
+REDIS_PASSWORD=redis_password
 ```
 
-* To start the API
+## Installation & Setup
 
+### Standard Installation
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/mdhishaamakhtar/live-poll.git
+   cd live-poll
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment**
+   - Copy `.env.example` to `.env`
+   - Update configuration values as needed
+
+4. **Start Services**
+   ```bash
+   # Development mode with auto-reload
+   npm run dev
+   
+   # Production mode
+   npm start
+   ```
+
+### Docker Deployment
+
+The application includes comprehensive Docker configuration for streamlined deployment:
+
+1. **Using Docker Compose**
+   ```bash
+   # Start all services (MongoDB, Redis, Backend)
+   docker-compose up -d
+   
+   # View logs
+   docker-compose logs -f
+   
+   # Stop services
+   docker-compose down
+   ```
+
+2. **Individual Container Build**
+   ```bash
+   # Build application image
+   docker build -t live-poll-backend .
+   
+   # Run with environment configuration
+   docker run -d --name live-poll --env-file .env -p 80:3000 live-poll-backend
+   ```
+
+## API Architecture
+
+### Authentication Endpoints
+- `POST /api/user/register` - User registration with validation
+- `POST /api/user/login` - Authentication with JWT token generation
+- `GET /api/user/getEvents` - Retrieve user's associated events
+
+### Event Management Endpoints
+- `POST /api/events/addEvent` - Create new polling event
+- `GET /api/events/getEvent/:code` - Access event by unique code
+- `GET /api/events/getEventdetail/:id` - Retrieve detailed event information
+- `DELETE /api/events/deleteEvent/:id` - Remove event (creator only)
+- `PATCH /api/events/editEventTitle/:id` - Update event title
+
+### Action Management Endpoints
+- `POST /api/actions/addAction/:eventId` - Create poll/quiz within event
+- `GET /api/actions/getActiondetail/:id` - Retrieve complete action details
+- `GET /api/actions/openAction/:id` - Activate action for participation
+- `GET /api/actions/closeAction/:id` - Deactivate action
+
+### Question & Option Management
+- `POST /api/questions/addQuestion/:actionId` - Add individual question
+- `POST /api/questions/addQuestionsAll/:actionId` - Batch question creation
+- `GET /api/questions/publishQuestion/:actionId/:questionId` - Make question live
+- `POST /api/options/addOption/:actionId/:questionId` - Add response option
+
+## Real-time Communication Protocol
+
+### WebSocket Events
+
+**Client → Server Events:**
+- `option` - Cast vote for specific option
+- `next question` - Request question navigation
+- `close quiz` - Terminate polling session
+- `reset options` - Clear vote statistics
+
+**Server → Client Events:**
+- `all options` - Broadcast updated vote counts
+- `next` - Signal question transition
+- `quiz ended` - Notify session termination
+
+### Vote Processing Flow
+1. Client emits vote selection via `option` event
+2. Redis increments vote counter for selected option
+3. Server broadcasts updated statistics to all connected clients
+4. Client interfaces update in real-time
+
+## Development Guidelines
+
+### Code Quality
+- **Linting**: ESLint with Standard.js configuration
+- **Code Formatting**: Consistent style enforcement
+- **Error Handling**: Comprehensive error catching and response formatting
+- **Logging**: Morgan HTTP request logging for development
+
+### Testing Commands
 ```bash
+# Run linter and auto-fix issues
+npm run lint
+
+# Development server with auto-reload
+npm run dev
+
+# Production server
 npm start
 ```
 
-<br>
+## Performance Considerations
 
-## Contributors
-<table>
-<tr align="center">
+### Database Optimization
+- **Mongoose ODM**: Optimized MongoDB queries with proper indexing
+- **Connection Pooling**: Efficient database connection management
+- **Embedded Documents**: Hierarchical data structure for reduced query complexity
 
+### Caching Strategy
+- **Redis Integration**: Real-time vote counting with memory-based storage
+- **Session Management**: Efficient state management for active sessions
+- **Data Persistence**: Automatic cleanup and restoration mechanisms
 
-<td>
+### Scalability Features
+- **Docker Support**: Containerized deployment for horizontal scaling
+- **Environment Configuration**: Flexible configuration for different deployment scenarios
+- **SSL/TLS Support**: Production-ready HTTPS configuration
 
-Md Hishaam Akhtar
+## Security Implementation
+
+### Authentication Security
+- **JWT Token Validation**: Stateless authentication with secure token verification
+- **Password Hashing**: Bcrypt encryption with configurable complexity
+- **Route Protection**: Middleware-based authorization for sensitive endpoints
+
+### Data Validation
+- **Input Sanitization**: Joi-based request validation
+- **SQL Injection Prevention**: NoSQL injection protection through Mongoose
+- **CORS Configuration**: Controlled cross-origin resource sharing
+
+## Deployment Architecture
+
+### Production Environment
+The system supports both traditional and containerized deployment:
+
+**Traditional Deployment:**
+- Node.js process management with PM2
+- Reverse proxy configuration (Nginx recommended)
+- SSL/TLS certificate integration
+- Environment-based configuration management
+
+**Container Deployment:**
+- Multi-service Docker Compose configuration
+- Persistent volume mapping for data retention
+- Network isolation and service discovery
+- Health check implementation
+
+### Monitoring & Maintenance
+- **Application Logging**: Comprehensive request and error logging
+- **Performance Metrics**: Response time and throughput monitoring
+- **Error Tracking**: Centralized error collection and analysis
+- **Database Monitoring**: Connection pool and query performance tracking
+
+## Contributing
+
+This project welcomes contributions from the developer community. Please refer to the contribution guidelines and ensure all pull requests include appropriate documentation and testing.
+
+## License
+
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for complete terms and conditions.
+
+## Developer
+
+**Md Hishaam Akhtar**  
+GitHub: [@mdhishaamakhtar](https://github.com/mdhishaamakhtar)  
+LinkedIn: [@mdhishaamakhtar](https://www.linkedin.com/in/mdhishaamakhtar)
+
+---
 
 <p align="center">
-<img src = "https://user-images.githubusercontent.com/58990970/103586688-9cde9700-4f0b-11eb-915c-0d8b9a555159.JPG" width="150" height="150" alt="Md Hishaam Akhtar">
+    Developed with ❤️ by <a href="https://dscvit.com">GDSC VIT</a>
 </p>
-<p align="center">
-<a href = "https://github.com/mdhishaamakhtar"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
-<a href = "https://www.linkedin.com/in/mdhishaamakhtar">
-<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
-</a>
-</p>
-</td>
-</tr>
-  </table>
-
-<p align="center">
-	Made with :heart: by <a href="https://dscvit.com">DSC VIT</a>
-</p>
-
